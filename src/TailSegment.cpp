@@ -1,9 +1,9 @@
 #include "TailSegment.h"
 
-/// Constructor.
+//--------------------------------------------------------------
 TailSegment::TailSegment(float size) : Segment(size)
 {
-	cout << "tailsegment: constructed" << endl;
+	cout << "TailSegment::TailSegment(): Constructed" << endl;
 
 	// Setting up the model.
 	tail.loadModel("isopod/isopod_head.dae");
@@ -18,6 +18,7 @@ TailSegment::TailSegment(float size) : Segment(size)
 	position = { 0, 0, 0 };
 }
 
+//--------------------------------------------------------------
 void TailSegment::draw()
 {
 	// Drawing the model with the orientation of the body_cone.
@@ -27,6 +28,7 @@ void TailSegment::draw()
 	body_cone.restoreTransformGL();
 }
 
+//--------------------------------------------------------------
 void TailSegment::draw_wireframe()
 {
 	// Drawing the model with the orientation of the body_cone.

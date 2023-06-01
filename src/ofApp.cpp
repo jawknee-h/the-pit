@@ -35,11 +35,9 @@ void ofApp::setup(){
 	// Setting up lights
 	light.setPointLight();
 	light.setDiffuseColor(ofFloatColor(0.46, 0.4, 0.46));
-	//light.setPosition({ 0, 40, 0 });
 	light.setPosition({ 2, 843, 0 });
 
 	light2.setPointLight();
-	//light2.setDiffuseColor(ofFloatColor(0.5, 0.5, 0.5));
 	light2.setDiffuseColor({ 1.0, 1.0, 1.0 });
 	light2.setSpecularColor({ 1.0, 1.0, 1.0 });
 	light2.setPosition({ 107, 468, 109 });
@@ -53,8 +51,9 @@ void ofApp::setup(){
 	cam.setTarget({ 0, 0, 0 });
 	cam.setFov(60);
 
-	// Creating beetles
-	for (int i = 0; i < 15; i++)
+	// Creating the small beetles
+	const int NUM_BEETLES = 15;
+	for (int i = 0; i < NUM_BEETLES; i++)
 	{
 		const int speed = ofRandom(500, 200);
 		const int segments = ofRandom(3, 5);
@@ -66,14 +65,10 @@ void ofApp::setup(){
 		beetles.push_back(b);
 	}
 
-	// Loading ambient sound.
+	// Loading ambient background sound
 	if (!ambient_sound.load("audio/bell.wav")) cout << "sound failed to load" << endl;
 	ambient_sound.play();
 	ambient_sound.setLoop(true);
-
-	/*cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n" << endl;
-	cout << "==========================================" << endl;
-	cout << "PRESS SPACEBAR TO RESTART THE SCENE!! :)" << endl;*/
 
 	string credits_message = R"(
       .:;¦\¯`¯'¯'\\    ’¦\¯¯``¯;\\  ____     ’             .:;¦\¯`'¯`’¯\ 
@@ -119,7 +114,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	// Updating all creatures.
+	// Updating the centipede and all beetles
 	centipede_1.update();
 
 	for (Centipede* b : beetles)
@@ -131,27 +126,19 @@ void ofApp::update()
 
 	// Updating and moving camera.
 	cam.update();
-	cam.setFov(cam.getFov() + 2 * ofGetLastFrameTime());
+	cam.setFov(cam.getFov() + 2 * ofGetLastFrameTime()); // increasing FOV gradually
 	cam.dolly( -7 * ofGetLastFrameTime());
 	cam.boom(-1 * ofGetLastFrameTime());
 	cam.rollDeg(0.8 * ofGetLastFrameTime());
 
 
-	/*light.setPosition({
-		0,
-		0,
-		ofMap(ofGetMouseY(), 0, ofGetHeight(), -100, 1000)
-		});*/
 	float spe = 0.002;
 	light.setPosition({
 		0,
 		ofMap(cos(ofGetElapsedTimeMillis() * spe), -1, 1, -100, 100),
 		ofMap(sin(ofGetElapsedTimeMillis() * spe), -1, 1, -100, 100)
 		});
-	//cout << spe << endl;
-	//cout << light.getPosition() << endl;
 	light.setAmbientColor({1.0, 1.0, 1.0});
-	/*light.setSpecularColor({ 0.3, 0.0, 0.0 });*/
 	light.setDiffuseColor({ 0.08, 0.0, 0.01 });
 }
 
@@ -162,17 +149,17 @@ void ofApp::draw()
 	ofEnableLighting();
 	cam.begin();
 
-	// Drawing the scene.
-	light.enable();
-	light2.enable();
-	draw_scene();
-	light2.disable();
-	light.disable();
+		// Drawing the scene.
+		light.enable();
+		light2.enable();
+			draw_scene();
+		light2.disable();
+		light.disable();
 
-	// Drawing the creatures.
-	light1.enable();
-	draw_creatures();
-	light1.disable();
+		// Drawing the creatures.
+		light1.enable();
+			draw_creatures();
+		light1.disable();
 
 	cam.end();
 	ofDisableLighting();
@@ -182,37 +169,12 @@ void ofApp::draw()
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-	switch (key)
-	{
-		// Debug keybinds.
-		case int('s') :
-		{
-			cout << "================================================" << endl;
-			cout << "current position: " << cam.getPosition() << endl;
-			cout << "current target: " << cam.getTarget().getPosition() << endl;
-
-			break;
-		}
-		case int('r') :
-		{
-			cout << "================================================" << endl;
-			cout << "total length " << centipede_1.get_total_path_length() << endl;
-			cout << "current length " << centipede_1.get_length_along_path() << endl;
-			break;
-		}
-		default:
-		{
-			reset_scene();
-
-			break;
-		}
-	}
+	reset_scene();
 }
 
-/// Draw the creatures.
+//--------------------------------------------------------------
 void ofApp::draw_creatures()
 {
-	//centipede_1.draw();
 	centipede_1.draw_wireframe();
 
 	for (Centipede* b : beetles)
@@ -221,46 +183,43 @@ void ofApp::draw_creatures()
 	}
 }
 
-/// Draw the terrain in the scene.
+//--------------------------------------------------------------
+// Draw the terrain in the scene.
+//--------------------------------------------------------------
 void ofApp::draw_scene()
 {
 	flesh4_texture.bind();
-	scene_flesh4.drawFaces();
+		scene_flesh4.drawFaces();
 	flesh4_texture.unbind();
 
 	eye_texture.bind();
-	scene_eye.drawFaces();
+		scene_eye.drawFaces();
 	eye_texture.unbind();
 
 	flesh3_texture.bind();
-	scene_flesh3.drawFaces();
+		scene_flesh3.drawFaces();
 	flesh3_texture.unbind();
 
 	bone1_texture.bind();
-	scene_bone1.drawFaces();
+		scene_bone1.drawFaces();
 	bone1_texture.unbind();
 }
 
+//--------------------------------------------------------------
 void ofApp::draw_scene_wireframe()
 {
-	//flesh4_texture.bind();
 	scene_flesh4.drawWireframe();
-	//flesh4_texture.unbind();
 
-	//eye_texture.bind();
 	scene_eye.drawWireframe();
-	//eye_texture.unbind();
 
-	//flesh3_texture.bind();
 	scene_flesh3.drawWireframe();
-	//flesh3_texture.unbind();
 
-	//bone1_texture.bind();
 	scene_bone1.drawWireframe();
-	//bone1_texture.unbind();
 }
 
-/// Reset everything so that it starts again in sync.
+//--------------------------------------------------------------
+// Resets everything so that it starts again in sync.
+//--------------------------------------------------------------
 void ofApp::reset_scene()
 {
 	// Resetting the paths of the creatures.
@@ -278,12 +237,13 @@ void ofApp::reset_scene()
 	cam.setFov(60);
 
 	// restarting the sound from the beginning
-	//ambient_sound.setPosition(0.93);
 	ambient_sound.setPosition(0.0);
 }
 
-/// Stop and start things like screenshake when they need to be,
-/// a bit like an animation player.
+//--------------------------------------------------------------
+// Stop and start things like screenshake at given times,
+// a bit like an animation player.
+//--------------------------------------------------------------
 void ofApp::manage_events(float current_frame)
 {
 	const int tolerance = 10;
@@ -293,8 +253,8 @@ void ofApp::manage_events(float current_frame)
 	const int keyframe_2 = 1180; // smaller tremors once centipede has exited the pit
 	const int keyframe_3 = 1474; // large tremors as centipede swoops past camera
 	const int keyframe_4 = 2384; // smaller tremors once centipede has passed
-	const int keyframe_5 = centipede_1.get_total_path_length() - 752/*3199*/; // large tremors as centipede re-enters pit
-	const int keyframe_6 = centipede_1.get_total_path_length() + 69;/*4020*/ // tremors fade once centipede has burrowed
+	const int keyframe_5 = centipede_1.get_total_path_length() - 752; // large tremors as centipede re-enters pit
+	const int keyframe_6 = centipede_1.get_total_path_length() + 69; // tremors fade once centipede has burrowed
 
 	// if the current length along path is close enough to the keyframe..
 	if (current_frame > keyframe_0 && current_frame  < keyframe_0 + tolerance)
@@ -332,55 +292,4 @@ void ofApp::manage_events(float current_frame)
 		//cout << "KEYFRAME 6" << endl;
 		cam.stop_shaking(0.01);
 	}
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo)
-{ 
-
 }

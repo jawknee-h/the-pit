@@ -13,19 +13,6 @@ class ofApp : public ofBaseApp{
 		void draw();
 
 		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-
-		void add_random_control_point();
-		void add_control_point(ofPoint pt);
 
 		void draw_scene();
 		void draw_scene_wireframe();
@@ -77,8 +64,8 @@ class ofApp : public ofBaseApp{
 		ofTexture bone1_texture;
 
 		ofLight light;
-		ofLight light2;
 		ofLight light1;
+		ofLight light2;
 
 		MyCamera cam;
 

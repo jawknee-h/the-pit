@@ -1,9 +1,9 @@
 #include "Centipede.h"
 
-/// Constructor.
+//--------------------------------------------------------------
 Centipede::Centipede(int _move_speed, int _segment_spacing, int _num_of_segments, float _segment_size, float _start_time)
 {
-	cout << "centipede: constructed" << endl;
+	cout << "Centipede::Centipede(): Constructed" << endl;
 
 	// Initializing variables.
 	start_time = _start_time;
@@ -37,8 +37,10 @@ Centipede::Centipede(int _move_speed, int _segment_spacing, int _num_of_segments
 	}
 }
 
+//--------------------------------------------------------------
 // Destructor to clean up after ourselves
 // helps to prevent memory leak
+//--------------------------------------------------------------
 Centipede::~Centipede()
 {
 	cout << "Centipede(): destroying all the segments" << endl;
@@ -49,6 +51,7 @@ Centipede::~Centipede()
 	}
 }
 
+//--------------------------------------------------------------
 void Centipede::update()
 {
 	// Moving all of the segments of the body.
@@ -76,20 +79,19 @@ void Centipede::update()
 		body[i]->move(new_pos);
 
 		// Moving the legs
-		//oscillate_legs(40, 40, 40, 0.02, i);
 		oscillate_legs(body[i], 40, 40, 40, 0.02, i);
 	}
 
 	t += move_speed * ofGetLastFrameTime();
 }
 
-/// Move legs:
-/// segment  =  pointer to the Segment which you want to rotate the legs for
-/// amt_x  =  maxmimum degrees to rotate on x axis
-/// amt_y  =  maximum degrees to rotate on y axis
-/// amt_z  =  maximum degrees to rotate on z axis
-/// wiggle_speed  =  how fast to oscillate
-/// offset  =  the offset for the sine function. Allows different legs to be out of phase
+//--------------------------------------------------------------
+// - segment  =  pointer to the Segment which you want to rotate the legs for
+// - amt_x  =  maxmimum degrees to rotate on x axis
+// - amt_y  =  maximum degrees to rotate on y axis
+// - amt_z  =  maximum degrees to rotate on z axis
+// - wiggle_speed  =  how fast to oscillate
+// - offset  =  the offset for the sine function. Allows different legs to be out of phase
 void Centipede::oscillate_legs(Segment* segment, float amt_x, float amt_y, float amt_z, float wiggle_speed, int offset)
 {
 	// Calculating rotation for each axis
@@ -115,6 +117,7 @@ void Centipede::oscillate_legs(Segment* segment, float amt_x, float amt_y, float
 	segment->rotate_legs(x_rotation_deg, { 1, 0, 0 });
 }
 
+//--------------------------------------------------------------
 void Centipede::draw()
 {
 	// Drawing all the body segments.
@@ -124,6 +127,7 @@ void Centipede::draw()
 	}
 }
 
+//--------------------------------------------------------------
 void Centipede::draw_wireframe()
 {
 	// Drawing all the body segments.
@@ -133,9 +137,11 @@ void Centipede::draw_wireframe()
 	}
 }
 
-/// Generating a random path, which will stay within the bounds of the scene
-/// num_points  ==  how many points should be added to the path
-/// return_to_pit  ==  whether the path should lead back into the pit at the end
+//--------------------------------------------------------------
+// Generating a random path, which will stay within the bounds of the scene
+//	- num_points  ==  how many points should be added to the path
+//	- return_to_pit  ==  whether the path should lead back into the pit at the end
+//--------------------------------------------------------------
 void Centipede::randomize_path(int num_points, bool return_to_pit)
 {
 	// Clearing the path before adding anything new.
@@ -189,7 +195,9 @@ void Centipede::randomize_path(int num_points, bool return_to_pit)
 	t = start_time;
 }
 
-/// Manually set the points in the spline path.
+//--------------------------------------------------------------
+// Manually set the points in the spline path.
+//--------------------------------------------------------------
 void Centipede::set_path(vector<ofPoint> points)
 {
 	// Clearing the path to begin with
@@ -208,25 +216,33 @@ void Centipede::set_path(vector<ofPoint> points)
 	t = start_time;
 }
 
-/// Return the current position of the head of the centipede (the first segment).
+//--------------------------------------------------------------
+// Return the current position of the head of the centipede (the first segment).
+//--------------------------------------------------------------
 ofVec3f Centipede::get_head_pos()
 {
 	return body[0]->get_position();
 }
 
-/// Return how far the head of the centipede currently is along the path.
+//--------------------------------------------------------------
+// Return how far the head of the centipede currently is along the path.
+//--------------------------------------------------------------
 float Centipede::get_length_along_path()
 {
 	return t;
 }
 
-/// Return the total length of the path.
+//--------------------------------------------------------------
+// Return the total length of the path.
+//--------------------------------------------------------------
 float Centipede::get_total_path_length()
 {
 	return spline.getLengthAtIndex(spline.size()-1);
 }
 
-/// Draw the spline path.
+//--------------------------------------------------------------
+// Draw the spline path.
+//--------------------------------------------------------------
 void Centipede::draw_path_debug()
 {
 	spline.draw();

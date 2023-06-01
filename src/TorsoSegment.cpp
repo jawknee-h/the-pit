@@ -1,9 +1,9 @@
 #include "TorsoSegment.h"
 
-/// Constructor.
+//--------------------------------------------------------------
 TorsoSegment::TorsoSegment(float size) : Segment(size)
 {
-	cout << "torsosegment constructed" << endl;
+	cout << "TorsoSegment::TorsoSegment(): Constructed" << endl;
 
 	// Setting up the models.
 	body.loadModel("isopod/isopod_body.dae");
@@ -25,23 +25,22 @@ TorsoSegment::TorsoSegment(float size) : Segment(size)
 	position = { 0, 0, 0 };
 }
 
+//--------------------------------------------------------------
 void TorsoSegment::update()
 {
-
 }
 
+//--------------------------------------------------------------
 void TorsoSegment::draw()
 {
 	// Drawing the model with the orientation of the body_cone.
 	body_cone.transformGL();
-
-	body.drawFaces();
-
-	legs.drawFaces();
-
+		body.drawFaces();
+		legs.drawFaces();
 	body_cone.restoreTransformGL();
 }
 
+//--------------------------------------------------------------
 void TorsoSegment::draw_wireframe()
 {
 	// Drawing the model with the orientation of the body_cone.
