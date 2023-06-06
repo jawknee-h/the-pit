@@ -1,6 +1,8 @@
 # the-pit
 Originally created as a final project for the class 'C++ for creative practice' in second year of university.
 
+<img src="https://github.com/jawknee-h/the-pit/assets/121831154/6417156b-475a-4107-8bf2-706c7392d26a" width="100%">
+
 
 https://github.com/jawknee-h/the-pit/assets/121831154/dc303c41-138e-4668-a586-eb3fe23a2709
 
