@@ -44,17 +44,5 @@ mini film.
 #### Design Features
 * **Dolly Zoom:** The camera is endlessly dollying towards the mouth of the pit while the field of view increases at an equal but opposite rate. Typically in film this technique is used to convey a sudden sinking feeling, with the zoom being performed rapidly, but I wanted to evoke a feeling of dread and unease as if you're slowly sinking or being pulled into the pit--being pulled so slowly that you can't be sure whether you're actually moving at all; some things appear to be getting closer while others move away. You start to question whether you can trust what you see. You start to understand that wherever you are, it doesn't follow the rules that we're used to--it's otherwordly.
 * Hand-designed the large centipede's path in cinematic way--just barely missing the camera and such. As the camera gets pulled closer to the pit and field of view continues to grow, the world starts to wrap around you like light in a black hole. I wanted to convey this feeling of inexplicable attraction, as if the pit has such a powerful intrigue to it that not even light can escape.
-* 
-
-Accompanying all of this is a dreamy bell sound which loops. I figured a
-scene like this would naturally be as loud as it is chaotic, but I felt that using a calming, almost
-hypnotic sound instead would convey that you’re so drawn to this pit that despite all of the crazy
-things going on around you, you can’t help but tune everything out and stare deep into it, almost
-like you’re being hypnotised or mind controlled by it.
-I also used lighting to create unease. The lighting in this scene doesn’t makes sense; it doesn’t act
-how we would expect it to: there is no clear lightsource and yet there are strong highlights; there
-are no shadows being projected; objects which should be in shadow, like the teeth, are bright,
-while other things which should be in the light, like the centipede, are very dark. It may not be
-wrong enough for us to consciously notice it, but I think you can feel that something is off when
-you look at it. I did this by making certain objects only influenced by their own lightsources, and
-by baking highlights and shadows into textures where possible.
+* **Anempathetic Audio:** For ambience I've looped a dreamy bell sound. I felt that using a calming and almost hypnotic sound that contrasts with the visuals would convey that you're so drawn to this pit that despite all of the wild things going on in your peripheral you can't help but tune everything out and stare deep into it--almost like you're being mind-controlled or hypnotised by it.
+* **Uncanny Lighting:** I used lighting to create a feeling of unease. The lighting in the scene doesn't act realistically: there is no clear lightsource and yet there are strong highlights; there are no shadows being projected; objects which should be in shadow, like the teeth, are bright while other things which should be in the light like the centipede are dark. It may not be wrong enough to be noticable consciously, but I think you can feel that something is off when you look at it even if you're not consciously aware of it. I achieved this by having certain meshes only be influenced their own lightsources, and by baking highlihgts and shadows into textures where possible.
