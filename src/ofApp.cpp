@@ -2,31 +2,30 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	// Setting up models.
-	scene_flesh4.loadModel("scene/models/scene_flesh42.obj");
-	scene_flesh3.loadModel("scene/models/scene_flesh3.obj");
-	scene_eye.loadModel("scene/models/scene_eye2.obj");
-	scene_bone1.loadModel("scene/models/scene_bone12.obj");
+	// Loading and scaling meshes
+	flesh4_mesh.loadModel("scene/models/scene_flesh42.obj"); // The parts of the model which use the flesh4 texture
+	flesh3_mesh.loadModel("scene/models/scene_flesh3.obj"); // Parts that use the flesh3 texture
+	eyes_mesh.loadModel("scene/models/scene_eye2.obj");
+	bone_mesh.loadModel("scene/models/scene_bone12.obj");
 
-	scene_flesh4.setScale(10, 10, 10);
-	scene_flesh3.setScale(10, 10, 10);
-	scene_eye.setScale(10, 10, 10);
-	scene_bone1.setScale(10, 10, 10);
+	flesh4_mesh.setScale(10, 10, 10);
+	flesh3_mesh.setScale(10, 10, 10);
+	eyes_mesh.setScale(10, 10, 10);
+	bone_mesh.setScale(10, 10, 10);
 
 	// Disabling normalized scale so that models are actually the scale I EXPORTED THEM AS....
-	scene_flesh4.setScaleNormalization(false);
-	scene_flesh3.setScaleNormalization(false);
-	scene_eye.setScaleNormalization(false);
-	scene_bone1.setScaleNormalization(false);
+	flesh4_mesh.setScaleNormalization(false);
+	flesh3_mesh.setScaleNormalization(false);
+	eyes_mesh.setScaleNormalization(false);
+	bone_mesh.setScaleNormalization(false);
 
-	// Loading textures.
+	// Loading textures and enabling tiling
 	ofDisableArbTex();
 	ofLoadImage(flesh4_texture, "scene/images/flesh_image_light.jpg");
 	ofLoadImage(flesh3_texture, "scene/images/flesh_image_dark.jpg");
 	ofLoadImage(eye_texture, "scene/images/eye_image.jpg");
 	ofLoadImage(bone1_texture, "scene/images/bone_image.png");
 
-	// Enabling tiling.
 	flesh4_texture.setTextureWrap(GL_REPEAT, GL_REPEAT);
 	flesh3_texture.setTextureWrap(GL_REPEAT, GL_REPEAT);
 	eye_texture.setTextureWrap(GL_REPEAT, GL_REPEAT);
@@ -34,15 +33,18 @@ void ofApp::setup(){
 
 	// Setting up lights
 	light.setPointLight();
-	light.setDiffuseColor(ofFloatColor(0.46, 0.4, 0.46));
 	light.setPosition({ 2, 843, 0 });
+	light.setAmbientColor({ 1.0, 1.0, 1.0 });
+	light.setDiffuseColor({ 0.33f, 0.25f, 0.26f });
 
 	light2.setPointLight();
+	light2.setAmbientColor({ 1.0, 1.0, 1.0 });
 	light2.setDiffuseColor({ 1.0, 1.0, 1.0 });
 	light2.setSpecularColor({ 1.0, 1.0, 1.0 });
 	light2.setPosition({ 107, 468, 109 });
 
 	light1.setPointLight();
+	light1.setAmbientColor({ 1.0, 1.0, 1.0 });
 	light1.setDiffuseColor(ofFloatColor(0.18, 0.12, 0.124));
 	light1.setPosition({ 500, 700, 500 });
 
@@ -51,7 +53,7 @@ void ofApp::setup(){
 	cam.setTarget({ 0, 0, 0 });
 	cam.setFov(60);
 
-	// Creating the small beetles
+	// Creating an array of the small beetles
 	const int NUM_BEETLES = 15;
 	for (int i = 0; i < NUM_BEETLES; i++)
 	{
@@ -106,9 +108,6 @@ void ofApp::setup(){
  c++ && openframeworks
 )";
 	cout << credits_message << endl;
-
-	ofSystemAlertDialog("Press SPACEBAR to play or restart the scene!! :)");
-	reset_scene();
 }
 
 //--------------------------------------------------------------
@@ -124,22 +123,12 @@ void ofApp::update()
 
 	manage_events(centipede_1.get_length_along_path());
 
-	// Updating and moving camera.
+	// Updating and moving camera so it animates gradually
 	cam.update();
 	cam.setFov(cam.getFov() + 2 * ofGetLastFrameTime()); // increasing FOV gradually
 	cam.dolly( -7 * ofGetLastFrameTime());
 	cam.boom(-1 * ofGetLastFrameTime());
 	cam.rollDeg(0.8 * ofGetLastFrameTime());
-
-
-	float spe = 0.002;
-	light.setPosition({
-		0,
-		ofMap(cos(ofGetElapsedTimeMillis() * spe), -1, 1, -100, 100),
-		ofMap(sin(ofGetElapsedTimeMillis() * spe), -1, 1, -100, 100)
-		});
-	light.setAmbientColor({1.0, 1.0, 1.0});
-	light.setDiffuseColor({ 0.08, 0.0, 0.01 });
 }
 
 //--------------------------------------------------------------
@@ -164,12 +153,22 @@ void ofApp::draw()
 	cam.end();
 	ofDisableLighting();
 	ofDisableDepthTest();
+
+	// Draw instructional overlay at the start.
+	if (overlay_shown)
+	{
+		ofSetColor(0);
+		ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+		ofSetColor(255);
+		ofDrawBitmapString("Press a key to start.", 20, 20);
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
 	reset_scene();
+	overlay_shown = false;
 }
 
 //--------------------------------------------------------------
@@ -189,32 +188,32 @@ void ofApp::draw_creatures()
 void ofApp::draw_scene()
 {
 	flesh4_texture.bind();
-		scene_flesh4.drawFaces();
+		flesh4_mesh.drawFaces();
 	flesh4_texture.unbind();
 
 	eye_texture.bind();
-		scene_eye.drawFaces();
+		eyes_mesh.drawFaces();
 	eye_texture.unbind();
 
 	flesh3_texture.bind();
-		scene_flesh3.drawFaces();
+		flesh3_mesh.drawFaces();
 	flesh3_texture.unbind();
 
 	bone1_texture.bind();
-		scene_bone1.drawFaces();
+		bone_mesh.drawFaces();
 	bone1_texture.unbind();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw_scene_wireframe()
 {
-	scene_flesh4.drawWireframe();
+	flesh4_mesh.drawWireframe();
 
-	scene_eye.drawWireframe();
+	eyes_mesh.drawWireframe();
 
-	scene_flesh3.drawWireframe();
+	flesh3_mesh.drawWireframe();
 
-	scene_bone1.drawWireframe();
+	bone_mesh.drawWireframe();
 }
 
 //--------------------------------------------------------------

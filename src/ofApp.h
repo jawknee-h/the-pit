@@ -54,13 +54,13 @@ class ofApp : public ofBaseApp{
 			{0, -1000, 0}
 		};
 
-		ofxAssimpModelLoader scene_flesh4;
+		ofxAssimpModelLoader flesh4_mesh;
 		ofTexture flesh4_texture;
-		ofxAssimpModelLoader scene_eye;
+		ofxAssimpModelLoader eyes_mesh;
 		ofTexture eye_texture;
-		ofxAssimpModelLoader scene_flesh3;
+		ofxAssimpModelLoader flesh3_mesh;
 		ofTexture flesh3_texture;
-		ofxAssimpModelLoader scene_bone1;
+		ofxAssimpModelLoader bone_mesh;
 		ofTexture bone1_texture;
 
 		ofLight light;
@@ -72,4 +72,6 @@ class ofApp : public ofBaseApp{
 		vector<Centipede*> beetles;
 
 		ofSoundPlayer ambient_sound;
+
+		bool overlay_shown = true;
 };
