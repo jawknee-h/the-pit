@@ -34,9 +34,13 @@ mini film.
 
 #### Features
 * Centipede class:
-    - Represents a chain-like creature made up of a head, a tail, and many links between.
-    - Can follow a path, which can be generated in any way
-        .In this example the large centipede is following a hand-designed path to give me complete control over its choreography, but the beetles follow their own stochastically generated paths.
+    - Represents a chain-like creature made up of a head, a tail, and a variable number of links between. Can be used to produce a variety of creatures by tweaking the models used and the length, scale and speed. The beetles and the large centipede are both made with the centipede class.
+    - Can follow a path
+        .In this example the large centipede is following a hand-designed path to give me complete control over its choreography, while the beetles follow their own stochastically generated paths.
+* Camera shake:
+* Simple animation-player system:
+    - Used for timing the camera shake and the movement of the different centipedes and beetles in this example.
+ 
     
 
 #### Description and documentation of the behaviour of the program
