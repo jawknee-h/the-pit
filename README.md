@@ -32,7 +32,7 @@ mini film.
 <img src="https://github.com/jawknee-h/the-pit/assets/121831154/fc0b842b-d41f-4827-8a18-cef626da6be6" width="24%">
 <img src="https://github.com/jawknee-h/the-pit/assets/121831154/0fd6622b-cd82-46c6-92eb-2ce9afada63e" width="24%">
 
-#### Features
+#### Technical Features
 * Centipede class:
     - Represents a chain-like creature made up of a head, a tail, and a variable number of links between. Can be used to produce a variety of creatures by tweaking the models used and the length, scale and speed. The beetles and the large centipede are both made with the centipede class.
     - Can follow a path
@@ -41,30 +41,12 @@ mini film.
 * Simple animation-player system:
     - Used for timing the camera shake and the movement of the different centipedes and beetles in this example.
  
-    
+#### Design Features
+* **Dolly Zoom:** The camera is endlessly dollying towards the mouth of the pit while the field of view increases at an equal but opposite rate. Typically in film this technique is used to convey a sudden sinking feeling, with the zoom being performed rapidly, but I wanted to evoke a feeling of dread and unease as if you're slowly sinking or being pulled into the pit--being pulled so slowly that you can't be sure whether you're actually moving at all; some things appear to be getting closer while others move away. You start to question whether you can trust what you see. You start to understand that wherever you are, it doesn't follow the rules that we're used to--it's otherwordly.
+* Hand-designed the large centipede's path in cinematic way--just barely missing the camera and such. As the camera gets pulled closer to the pit and field of view continues to grow, the world starts to wrap around you like light in a black hole. I wanted to convey this feeling of inexplicable attraction, as if the pit has such a powerful intrigue to it that not even light can escape.
+* 
 
-#### Description and documentation of the behaviour of the program
-It’s unclear what or where it is, but it aims to be uncomfortable to look at.
-There's a pit lined with teeth and eyes in the center of the frame.
-Initially a swarm of small beetles flee from the pit; the path that each beetle takes is generated stochastically when the application begins.
-The camera will begin to shake.. Subtly at first, then more violently until a centipede 100 times
-the size, which has also been procedurally generated and animated, emerges from the pit to chase
-them. My centipede follows a hard-coded path, unlike the beetles,
-which allows me to have full control over where it goes and when. I did this so that I could hand
-choreograph its movement to ensure it moves in a cinematic way - just barely missing the camera
-and such. After flying around, the centipede plunges back into the pit, causing tremors.
-All the while, the camera is slowly dollying towards the pit while the camera’s field of view
-increases at an equal but opposite rate, similar to a dolly zoom (aka vertigo shot/jaws effect).
-Typically in film this technique is used to convey a sudden sinking feeling, with the zoom being
-performed rapidly, but what I wanted to convey was slightly different. I wanted to evoke a
-feeling of dread and unease, like you’re slowly sinking or being pulled into the pit. Being pulled
-so slowly that you can’t tell if you’re even actually moving at all. Some things appear to be
-getting closer, but other things appear to get farther away; you start to question if you can trust
-what you see; you start to understand that wherever you are, it doesn’t follow the rules that we’re
-used to - it’s otherwordly. As the camera gets pulled closer to the pit and field of view continues
-to grow, the world starts to warp around you, like light in a black hole. I wanted to convey this
-feeling of inexplicable attraction, as if the pit has such a powerful force of attraction that not
-even light can escape. Accompanying all of this is a dreamy bell sound which loops. I figured a
+Accompanying all of this is a dreamy bell sound which loops. I figured a
 scene like this would naturally be as loud as it is chaotic, but I felt that using a calming, almost
 hypnotic sound instead would convey that you’re so drawn to this pit that despite all of the crazy
 things going on around you, you can’t help but tune everything out and stare deep into it, almost
